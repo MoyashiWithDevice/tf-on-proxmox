@@ -1,5 +1,10 @@
 provider "proxmox" {
-  endpoint  = var.proxmox_endpoint
-  api_token = var.proxmox_api_token
-  insecure  = true
+  # endpoint は variables.tf の default で決まる
+  endpoint = var.proxmox_endpoint
+
+  # token は env(PROXMOX_VE_API_TOKEN) があれば provider 側が拾えるので、
+  # var を使わず空でもOKにしておくのが事故りにくい
+  api_token = try(var.proxmox_api_token, null)
+
+  insecure = true
 }
