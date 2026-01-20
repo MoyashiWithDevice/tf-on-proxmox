@@ -1,7 +1,6 @@
 # terraform/proxmox-vms/main.tf
 terraform {
   required_version = ">= 1.5.0"
-
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
@@ -10,35 +9,23 @@ terraform {
   }
 }
 
-data "proxmox_nodes" "all" {}
-
-output "nodes" {
-  value = data.proxmox_nodes.all.names
-}
-
 resource "proxmox_vm_qemu" "web_server" {
   count       = 1
-  name        = "almalinux-${count.index}"
-  target_node = "pve" # Proxmoxのノード名
+  name        = "Ubuntu24-${count.index}"
+  node_name = var.target_node # Proxmoxのノード名
 
-  # クローン元のテンプレート名（あらかじめProxmoxで作っておく必要があります）
-  clone = "Ubuntu24.04-template"
-
-  # 基本スペック
-  cores   = 2
-  memory  = 2048
-
-  # ディスク設定
-  disk {
-    size    = "20G"
-    type    = "scsi"
-    storage = "local-lvm"
+  clone{
+    vm_id = var.template_vmid
+  }
+  cpu{
+    cores = 2
+  }
+  memory{
+    dedicated = 2048
   }
 
-  # ネットワーク設定
   network {
-    model  = "virtio"
-    bridge = "vmbr31"
+    bridge = var.bridge
   }
 
   # Cloud-init設定（IP固定やSSHキーなど）

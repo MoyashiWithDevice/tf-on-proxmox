@@ -1,12 +1,12 @@
 variable "proxmox_endpoint" {
   type        = string
-  description = "e.g. https://pve.example.com:8006/api2/json"
+  default     = "https://<PROXMOX_IP>:8006/api2/json"
+  description = "Proxmox API endpoint"
 }
 
 variable "proxmox_api_token" {
-  type        = string
-  description = "e.g. terraform@pve!gitops=xxxxxxxx"
-  sensitive   = true
+  type      = string
+  sensitive = true
 }
 
 # VM作成に進むときに使う（今は未使用でもOK）
@@ -22,5 +22,5 @@ variable "bridge" {
 
 variable "template_vmid" {
   type        = number
-  default     = 0
+  default     = 106
 }
