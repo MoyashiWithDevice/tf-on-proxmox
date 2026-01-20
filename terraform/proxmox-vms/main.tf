@@ -9,7 +9,7 @@ terraform {
   }
 }
 
-resource "proxmox_vm_qemu" "web_server" {
+resource "proxmox_virtual_environment_vm" "web_server" {
   count       = 1
   name        = "Ubuntu24-${count.index}"
   node_name = var.target_node # Proxmoxのノード名
@@ -24,11 +24,18 @@ resource "proxmox_vm_qemu" "web_server" {
     dedicated = 2048
   }
 
-  network {
+  network_device {
+    model = "virtio"
     bridge = var.bridge
   }
 
-  # Cloud-init設定（IP固定やSSHキーなど）
-  os_type = "cloud-init"
-  ipconfig0 = "ip=172.31.0.13${count.index}/24,gw=172.31.0.254"
+  initialization {
+    interface = "ide2"
+    ip_config{
+      ipv4{
+        address = "172.31.0.13${count.index}/24"
+        gateway = "172.31.0.254"
+      }
+    }
+  }
 }
