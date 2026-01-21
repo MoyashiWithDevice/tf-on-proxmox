@@ -29,3 +29,10 @@ resource "proxmox_virtual_environment_vm" "web_server" {
     }
   }
 }
+output "debug_endpoint" {
+  value = var.endpoint
+}
+
+output "debug_endpoint_len" {
+  value = length(var.endpoint)
+}
