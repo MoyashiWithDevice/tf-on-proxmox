@@ -1,10 +1,13 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "~> 0.50"
+    }
+  }
+}
+
 provider "proxmox" {
-  # endpoint は variables.tf の default で決まる
-  endpoint = var.endpoint
-
-  # token は env(PROXMOX_VE_API_TOKEN) があれば provider 側が拾えるので、
-  # var を使わず空でもOKにしておくのが事故りにくい
-  api_token = try(var.api_token, null)
-
+  # endpoint / api_token は env (PROXMOX_VE_ENDPOINT / PROXMOX_VE_API_TOKEN) から読む
   insecure = true
 }
