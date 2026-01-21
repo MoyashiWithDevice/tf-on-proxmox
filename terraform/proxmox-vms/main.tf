@@ -34,5 +34,5 @@ output "debug_endpoint" {
 }
 
 output "debug_endpoint_len" {
-  value = length(var.endpoint)
+  value = var.endpoint == null ? -1 : length(var.endpoint)
 }
