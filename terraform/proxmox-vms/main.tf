@@ -2,6 +2,7 @@
 resource "proxmox_virtual_environment_vm" "web_server" {
   count       = 1
   name        = "Ubuntu24-${count.index}"
+  vm_id = 108
   node_name = var.target_node # Proxmoxのノード名
 
   clone{
@@ -28,11 +29,4 @@ resource "proxmox_virtual_environment_vm" "web_server" {
       }
     }
   }
-}
-output "debug_endpoint" {
-  value = var.endpoint
-}
-
-output "debug_endpoint_len" {
-  value = var.endpoint == null ? -1 : length(var.endpoint)
 }
