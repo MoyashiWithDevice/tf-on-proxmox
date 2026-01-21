@@ -1,14 +1,4 @@
 # terraform/proxmox-vms/main.tf
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers {
-    proxmox = {
-      source  = "bpg/proxmox"
-      version = "~> 0.50"
-    }
-  }
-}
-
 resource "proxmox_virtual_environment_vm" "web_server" {
   count       = 1
   name        = "Ubuntu24-${count.index}"
