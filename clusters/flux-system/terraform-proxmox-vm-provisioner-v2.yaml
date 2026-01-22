@@ -4,22 +4,72 @@ metadata:
   name: proxmox-vm-provisioner-v2
   namespace: flux-system
 spec:
-  interval: 5m
-
-  # tfコードを取ってくる先（すでにある GitRepository）
+  interval: 3m
+  approvePlan: auto
+  path: ./terraform/proxmox-vms
+  alwaysCleanupRunnerPod: false
+  tfstate:
+    lockTimeout: 5m
+  upgradeOnInit: true
   sourceRef:
     kind: GitRepository
     name: my-infra-repo
     namespace: flux-system
 
-  # リポジトリ内の tf ファイルがある場所に合わせる
-  path: ./terraform/proxmox-vms
+  # Terraform spec 直下の設定
+  serviceAccountName: tf-runner
 
-  # 自動 approve したい場合（まずは auto でOK）
-  approvePlan: auto
+  runnerPodTemplate:
+    spec:
+      image: ghcr.io/flux-iac/tf-runner:v0.16.0-rc.8
+      env: 
+        - name: PROXMOX_VE_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-auth
+              key: endpoint
+        - name: PROXMOX_VE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-auth
+              key: api_token
+      volumeMounts:
+        - name: github-secrets
+          mountPath: /mnt/secrets/github
+          readOnly: true
+        - name: proxmox-secrets
+          mountPath: /mnt/secrets/proxmox
+          readOnly: true
+      volumes:
+        - name: github-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: github-vault-secrets
+        - name: proxmox-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: proxmox-vault-secrets
 
-  # ロック関連は 0s だとトラブルになりやすいので少し待つ
-  tfstate:
-    lockTimeout: 5m
+  # 変数設定 (SecretProviderClassで作成されたSecretを参照)
+  vars:
+    - name: github_token
+      valueFrom:
+        secretKeyRef:
+          name: github-auth
+          key: token
 
-  upgradeOnInit: true
+    - name: api_token
+      valueFrom:
+        secretKeyRef:
+          name: proxmox-auth
+          key: api_token
+
+    - name: endpoint
+      valueFrom:
+        secretKeyRef:
+          name: proxmox-auth
+          key: endpoint
