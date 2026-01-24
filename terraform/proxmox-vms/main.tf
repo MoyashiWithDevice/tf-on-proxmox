@@ -1,7 +1,7 @@
 # terraform/proxmox-vms/main.tf
 resource "proxmox_virtual_environment_vm" "web_server" {
   count       = 1
-  name        = "Ubuntu24-${count.index}"
+  name        = "terraform-test"
   vm_id = 108
   node_name = var.target_node # Proxmoxのノード名
 
