@@ -13,11 +13,11 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
   migrate                              = false
   name                                 = "Ubuntu24.04-template"
   node_name                            = "proxmox-host1"
-  on_boot                              = false
+  on_boot                              = true
   pool_id                              = null
   protection                           = false
   purge_on_destroy                     = true
-  reboot                               = false
+  reboot                               = true
   reboot_after_update                  = true
   scsi_hardware                        = "virtio-scsi-single"
   started                              = false

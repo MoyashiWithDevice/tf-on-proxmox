@@ -16,11 +16,11 @@ resource "proxmox_virtual_environment_vm" "nfs_server" {
   migrate                              = false
   name                                 = "nfs-server"
   node_name                            = "proxmox-host1"
-  on_boot                              = false
+  on_boot                              = true
   pool_id                              = null
   protection                           = false
   purge_on_destroy                     = true
-  reboot                               = false
+  reboot                               = true
   reboot_after_update                  = true
   scsi_hardware                        = "virtio-scsi-single"
   started                              = true
@@ -105,11 +105,11 @@ resource "proxmox_virtual_environment_vm" "truenas" {
   migrate                              = false
   name                                 = "TrueNAS"
   node_name                            = "proxmox-host1"
-  on_boot                              = false
+  on_boot                              = true
   pool_id                              = null
   protection                           = false
   purge_on_destroy                     = true
-  reboot                               = false
+  reboot                               = true
   reboot_after_update                  = true
   scsi_hardware                        = "pvscsi"
   started                              = true
