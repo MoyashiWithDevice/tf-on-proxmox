@@ -11,7 +11,7 @@ variable "api_token" {
 
 variable "target_node" {
   type        = string
-  default     = "pve"
+  default     = "proxmox-host1"
 }
 
 variable "bridge" {
