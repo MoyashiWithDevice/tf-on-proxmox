@@ -1,32 +1,26 @@
-# terraform/proxmox-vms/main.tf
-resource "proxmox_virtual_environment_vm" "web_server" {
-  count       = 1
-  name        = "terraform-test"
-  vm_id = 108
-  node_name = var.target_node # Proxmoxのノード名
+provider "github" {
+  token = local.github_pat
+  owner = "MoyashiWithDevice" # あなたのGitHubユーザー名または組織名
+}
 
-  clone{
-    vm_id = var.template_vmid
-  }
-  cpu{
-    cores = 2
-  }
-  memory{
-    dedicated = 2048
-  }
+resource "github_repository_file" "inventory" {
+  repository          = "ansible-resources"
+  branch              = "main"
+  file                = "inventory.ini"
+  
+  # inventory.tftpl を元に、作成したVMのIPを流し込む
+  content = templatefile("${path.module}/inventory.tftpl", {
+    vms = [
+      proxmox_virtual_environment_vm.kube_ctrl,
+      proxmox_virtual_environment_vm.kube_worker_rhel,
+      proxmox_virtual_environment_vm.kube_worker_ubuntu,
+      proxmox_virtual_environment_vm.test_server,
+      proxmox_virtual_environment_vm.ubuntu_temp,
+      proxmox_virtual_environment_vm.nfs_server,
+      proxmox_virtual_environment_vm.truenas,
+    ]
+  })
 
-  network_device {
-    model = "virtio"
-    bridge = var.bridge
-  }
-
-  initialization {
-    interface = "ide2"
-    ip_config{
-      ipv4{
-        address = "172.31.0.13${count.index}/24"
-        gateway = "172.31.0.254"
-      }
-    }
-  }
+  commit_message      = "Update inventory.ini by Terraform [skip ci]"
+  overwrite_on_create = true
 }
