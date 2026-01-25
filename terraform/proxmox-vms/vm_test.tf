@@ -2,7 +2,7 @@
 resource "proxmox_virtual_environment_vm" "test_server" {
   count       = 1
   name        = "terraform-test"
-  vm_id = 108
+  vm_id = 107
   node_name = var.target_node # Proxmoxのノード名
 
   clone{
