@@ -25,7 +25,7 @@ resource "proxmox_virtual_environment_vm" "test_server" {
     interface = "ide2"
     user_account{
       username = "bababa"
-      key = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqxA0d7VVlG4w3dRAeGSPeQnXddOBqXdwIz7ZbAg6+W bababa@worker-ubuntu"]
+      keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqxA0d7VVlG4w3dRAeGSPeQnXddOBqXdwIz7ZbAg6+W bababa@worker-ubuntu"]
     }
     
     ip_config{
