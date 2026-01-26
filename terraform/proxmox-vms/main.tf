@@ -1,5 +1,5 @@
 provider "github" {
-  token = local.github_pat
+  token = var.github_token
   owner = "MoyashiWithDevice" # あなたのGitHubユーザー名または組織名
 }
 
