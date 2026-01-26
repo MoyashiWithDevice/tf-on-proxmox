@@ -1,6 +1,5 @@
 # terraform/proxmox-vms/vm_test.tf
 resource "proxmox_virtual_environment_vm" "test_server" {
-  count       = 1
   name        = "test-server"
   vm_id = 107
   node_name = var.target_node # Proxmoxのノード名
