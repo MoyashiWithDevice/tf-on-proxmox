@@ -9,8 +9,6 @@ spec:
   approvePlan: auto
   path: ./terraform/proxmox-vms
   alwaysCleanupRunnerPod: false
-  # ロックエラーが発生した際に自動で解除を試みる設定（念のため）
-  forceUnlock: true 
   
   sourceRef:
     kind: GitRepository
