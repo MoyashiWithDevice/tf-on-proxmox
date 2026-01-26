@@ -21,10 +21,13 @@ resource "proxmox_virtual_environment_vm" "test_server" {
   }
 
   initialization {
+    
+    interface = "ide2"
     user_account{
       username = "bababa"
+      key = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqxA0d7VVlG4w3dRAeGSPeQnXddOBqXdwIz7ZbAg6+W bababa@worker-ubuntu"]
     }
-    interface = "ide2"
+    
     ip_config{
       ipv4{
         address = "172.31.0.13${count.index}/24"
