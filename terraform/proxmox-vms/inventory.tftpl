@@ -1,6 +1,7 @@
 [proxmox_vms]
 %{ for vm in vms ~}
-${vm.name} ansible_host=${vm.ipv4_addresses[0][0]} ansible_user=bababa
+# try関数を使って、IPが取れない場合は一時的に "pending" と表示させる
+${vm.name} ansible_host=${try(flatten(vm.ipv4_addresses)[0], "pending")} ansible_user=bababa
 %{ endfor ~}
 
 [all:vars]
