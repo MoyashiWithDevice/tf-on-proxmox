@@ -1,8 +1,3 @@
-provider "github" {
-  token = var.github_token
-  owner = "MoyashiWithDevice" # あなたのGitHubユーザー名または組織名
-}
-
 resource "github_repository_file" "inventory" {
   repository          = "ansible-resources"
   branch              = "main"

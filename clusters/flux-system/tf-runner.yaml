@@ -32,6 +32,11 @@ spec:
             secretKeyRef:
               name: proxmox-auth
               key: api_token
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-auth
+              key: token
       volumeMounts:
         - name: github-secrets
           mountPath: /mnt/secrets/github
