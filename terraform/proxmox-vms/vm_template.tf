@@ -56,7 +56,6 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
     import_from       = null
     interface         = "scsi0"
     iothread          = true
-    path_in_datastore = "base-106-disk-0"
     replicate         = true
     serial            = null
     size              = 32
