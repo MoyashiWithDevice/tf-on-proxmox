@@ -32,7 +32,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
   timeout_shutdown_vm                  = 1800
   timeout_start_vm                     = 1800
   timeout_stop_vm                      = 300
-  vm_id                                = 106
+  vm_id                                = 9000
   cpu {
     affinity     = null
     architecture = null
