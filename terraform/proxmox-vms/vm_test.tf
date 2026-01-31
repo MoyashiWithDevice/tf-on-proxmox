@@ -33,5 +33,19 @@ resource "proxmox_virtual_environment_vm" "test_server" {
         gateway = "172.31.0.254"
       }
     }
+    user_data = <<-EOF
+      #cloud-config
+      package_update: true
+      packages:
+        - qemu-guest-agent
+
+      runcmd:
+        - systemctl enable qemu-guest-agent
+        - systemctl start qemu-guest-agent
+    EOF
+    
+  }
+  agent {
+    enabled = true
   }
 }

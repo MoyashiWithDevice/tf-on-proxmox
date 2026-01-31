@@ -88,6 +88,9 @@ resource "proxmox_virtual_environment_vm" "nfs_server" {
   operating_system {
     type = "l26"
   }
+  agent {
+    enabled = true
+  }
 }
 
 # __generated__ by Terraform
@@ -199,5 +202,8 @@ resource "proxmox_virtual_environment_vm" "truenas" {
   }
   operating_system {
     type = "l26"
+  }
+  agent {
+    enabled = true
   }
 }

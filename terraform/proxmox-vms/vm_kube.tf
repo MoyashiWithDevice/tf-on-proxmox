@@ -108,6 +108,9 @@ resource "proxmox_virtual_environment_vm" "kube_ctrl" {
   operating_system {
     type = "l26"
   }
+  agent {
+    enabled = true
+  }
 }
 
 # __generated__ by Terraform
@@ -213,6 +216,9 @@ resource "proxmox_virtual_environment_vm" "kube_worker_ubuntu" {
   }
   operating_system {
     type = "l26"
+  }
+  agent {
+    enabled = true
   }
 }
 
@@ -325,5 +331,8 @@ resource "proxmox_virtual_environment_vm" "kube_worker_rhel" {
   }
   operating_system {
     type = "l26"
+  }
+  agent {
+    enabled = true
   }
 }
