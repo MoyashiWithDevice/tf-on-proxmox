@@ -322,7 +322,7 @@ resource "proxmox_virtual_environment_vm" "kube_worker_rhel" {
     enabled      = true
     firewall     = false
     mac_address  = "00:0c:29:c1:30:d6"
-    model        = "vmxnet3"
+    model        = "virtio"
     mtu          = 0
     queues       = 0
     rate_limit   = 0
