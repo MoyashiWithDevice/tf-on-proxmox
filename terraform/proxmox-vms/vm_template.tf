@@ -6,4 +6,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
   tags                                 = ["template"]
   template                             = true
   vm_id                                = 9000
+  agent{
+    enable = true
+  }
 }
