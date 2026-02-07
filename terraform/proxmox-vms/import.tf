@@ -26,7 +26,3 @@ import{
   to = proxmox_virtual_environment_vm.nfs_server
   id = "proxmox-host1/103"
 }
-import{
-  to = proxmox_virtual_environment_vm.test_server
-  id = "proxmox-host1/107"
-}
