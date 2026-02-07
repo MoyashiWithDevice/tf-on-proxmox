@@ -11,12 +11,10 @@ variable "api_token" {
 
 variable "ssh_username" {
   type    = string
-  default = null # env から注入
 }
 
 variable "ssh_password" {
   type    = string
-  default = null # env から注入
 }
 
 variable "target_node" {

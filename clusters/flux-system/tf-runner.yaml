@@ -13,6 +13,9 @@ spec:
     name: terraform-resources
     namespace: flux-system
   serviceAccountName: tf-runner
+  varsFrom:
+    - kind: Secret
+      name: proxmox-auth
   runnerPodTemplate:
     spec:
       image: ghcr.io/flux-iac/tf-runner:v0.16.0-rc.8
@@ -27,16 +30,6 @@ spec:
             secretKeyRef:
               name: proxmox-auth
               key: api_token
-        - name: TF_VAR_ssh_username
-          valueFrom:
-            secretKeyRef:
-              name: proxmox-auth
-              key: username
-        - name: TF_VAR_ssh_password
-          valueFrom:
-            secretKeyRef:
-              name: proxmox-auth
-              key: password
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
