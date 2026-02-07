@@ -24,13 +24,14 @@ resource "proxmox_virtual_environment_vm" "test_server" {
     interface = "ide2"
     
     user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
-    
+
     ip_config{
       ipv4{
         address = "172.31.0.13/24"
         gateway = "172.31.0.254"
       }
     }
+  }
   agent {
     enabled = true
   }
