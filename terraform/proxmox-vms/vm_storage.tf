@@ -175,7 +175,7 @@ resource "proxmox_virtual_environment_vm" "truenas" {
     ssd               = false
   }
   efi_disk {
-    datastore_id      = "local"
+    datastore_id      = "local-lvm"
     file_format       = "raw"
     pre_enrolled_keys = false
     type              = "4m"
