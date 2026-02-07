@@ -18,7 +18,3 @@ import {
   to = proxmox_virtual_environment_vm.kube_worker_ubuntu
   id = "proxmox-host1/105"
 }
-import {
-  to = proxmox_virtual_environment_vm.test_server
-  id = "proxmox-host1/107"
-}

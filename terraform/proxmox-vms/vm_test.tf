@@ -37,11 +37,10 @@ users:
     shell: /bin/bash
     
   - name: ansible
-    groups: [sudo]
     shell: /bin/bash
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqxA0d7VVlG4w3dRAeGSPeQnXddOBqXdwIz7ZbAg6+W bababa@worker-ubuntu
+      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL/kEsjJ+fb3432waZDbiTvLIwG+0pVNc4WAG179rVDqzDeX6xahWJu9taWZY1hszJuf8f1RMzBW7WHjrQ7M17s= bababa@k8s
 
 #cloud-config
 package_update: true
