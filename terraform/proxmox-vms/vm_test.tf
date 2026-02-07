@@ -20,8 +20,10 @@ resource "proxmox_virtual_environment_vm" "test_server" {
   }
 
   initialization {
-    
+    datastore_id = "local-lvm"
     interface = "ide2"
+    
+    user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
     
     ip_config{
       ipv4{
@@ -29,18 +31,26 @@ resource "proxmox_virtual_environment_vm" "test_server" {
         gateway = "172.31.0.254"
       }
     }
+  agent {
+    enabled = true
+  }
+}
 
-#    user = "ansible"
-#    sshkeys = [
-#      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL/kEsjJ+fb3432waZDbiTvLIwG+0pVNc4WAG179rVDqzDeX6xahWJu9taWZY1hszJuf8f1RMzBW7WHjrQ7M17s= bababa@k8s"
-#    ]
-    
-    user_data = <<EOF
+# 1. Cloud-initの設定をファイルとして定義し、Proxmoxにアップロード
+resource "proxmox_virtual_environment_file" "cloud_config" {
+  content_type = "snippets"
+  datastore_id = "local-lvm" # スニペットを保存するストレージ名
+  node_name    = var.target_node
+
+  source_raw {
+    file_name = "setup-cloud-config.yaml"
+    data      = <<EOF
 #cloud-config
 users:
   - name: ansible
+    groups: sudo
     shell: /bin/bash
-    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL/kEsjJ+fb3432waZDbiTvLIwG+0pVNc4WAG179rVDqzDeX6xahWJu9taWZY1hszJuf8f1RMzBW7WHjrQ7M17s= bababa@k8s
 
@@ -49,14 +59,8 @@ packages:
   - qemu-guest-agent
 
 runcmd:
-  - [ sh, -c, "echo 'ansible ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/ansible" ]
-  - chmod 440 /etc/sudoers.d/ansible
   - systemctl enable qemu-guest-agent
   - systemctl start qemu-guest-agent
 EOF
-    
-  }
-  agent {
-    enabled = true
   }
 }
