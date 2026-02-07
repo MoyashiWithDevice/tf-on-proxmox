@@ -73,3 +73,13 @@ spec:
         secretKeyRef:
           name: proxmox-auth
           key: endpoint
+    - name: username
+      valueFrom:
+        secretKeyRef:
+          name: proxmox-auth
+          key: username
+    - name: password
+      valueFrom:
+        secretKeyRef:
+          name: proxmox-auth
+          key: password
