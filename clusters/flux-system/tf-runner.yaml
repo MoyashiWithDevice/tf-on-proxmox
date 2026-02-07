@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
+  path: ./terraform/proxmox-vms
   sourceRef:
     kind: GitRepository
     name: terraform-resources
