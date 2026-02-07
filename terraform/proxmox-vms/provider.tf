@@ -5,14 +5,11 @@ terraform {
       version = "~> 0.50"
     }
   }
-}
-
-terraform {
+  
   backend "local" {
     path = "terraform.tfstate"
   }
 }
-
 
 provider "proxmox" {
   insecure = true
