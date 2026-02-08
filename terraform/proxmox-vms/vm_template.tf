@@ -13,7 +13,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
 
     ip_config{
       ipv4{
-        gateway = "172.31.0.254"
+        address = "dhcp"
       }
     }
     
