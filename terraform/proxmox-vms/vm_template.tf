@@ -15,7 +15,6 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
       ipv4{
         gateway = "172.31.0.254"
       }
-      disconnected = false
     }
     
     user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
