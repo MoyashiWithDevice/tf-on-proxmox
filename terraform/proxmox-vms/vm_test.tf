@@ -20,7 +20,7 @@ resource "proxmox_virtual_environment_vm" "test_server" {
   }
 
   initialization {
-    datastore_id = "local"
+    datastore_id = "local_lvm"
     interface = "ide2"
     
     user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
