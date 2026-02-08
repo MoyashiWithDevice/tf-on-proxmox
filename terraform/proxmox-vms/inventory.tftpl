@@ -1,11 +1,12 @@
 [proxmox_vms]
 %{ for vm in vms ~}
-%{ for ip in flatten(vm.ipv4_addresses) ~}
-%{ if ip != "127.0.0.1" && ip != "" ~}
-${vm.name} ansible_host=${ip}
-%{ break ~} # 最初の有効なIPが見つかったら終了
+%{ 
+  valid_ips = [for ip in flatten(vm.ipv4_addresses) : ip if ip != "127.0.0.1" && ip != ""]
+  final_ip = length(valid_ips) > 0 ? valid_ips[0] : ""
+~}
+%{ if final_ip != "" ~}
+${vm.name} ansible_host=${final_ip}
 %{ endif ~}
-%{ endfor ~}
 %{ endfor ~}
 
 [all:vars]
