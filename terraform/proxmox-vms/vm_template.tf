@@ -1,11 +1,40 @@
 # __generated__ by Terraform
 resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
   machine                              = null
-  name                                 = "Ubuntu24.04-template"
-  node_name                            = "proxmox-host1"
   tags                                 = ["template"]
   template                             = true
+
+  name                                 = "Ubuntu24.04-template"
+  node_name                            = "proxmox-host1"
   vm_id                                = 9000
+  cpu{
+    cores = 2
+  }
+  memory{
+    dedicated = 2048
+  }
+
+  network_device {
+    model = "virtio"
+    bridge = var.bridge
+  }
+
+  disk {
+    aio               = "io_uring"
+    backup            = true
+    cache             = "none"
+    datastore_id      = "local-lvm"
+    discard           = "ignore"
+    file_format       = "raw"
+    file_id           = null
+    import_from       = null
+    interface         = "scsi0"
+    iothread          = false
+    replicate         = true
+    serial            = null
+    size              = 64
+    ssd               = false
+  }
   
   initialization {
     datastore_id = "local-lvm"
