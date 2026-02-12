@@ -11,7 +11,7 @@ resource "github_repository_file" "inventory" {
       proxmox_virtual_environment_vm.kube_worker_ubuntu,
       proxmox_virtual_environment_vm.nfs_server,
       proxmox_virtual_environment_vm.truenas,
-      proxmox_virtual_environment_vm.test_server,
+      proxmox_virtual_environment_vm.kube-ctrl-2,
     ]
   })
 

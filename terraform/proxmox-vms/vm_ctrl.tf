@@ -1,5 +1,5 @@
 # terraform/proxmox-vms/vm_test.tf
-resource "proxmox_virtual_environment_vm" "test_server" {
+resource "proxmox_virtual_environment_vm" "kube-ctrl-2" {
   name        = "kube-ctrl-2"
   vm_id = 108
   node_name = var.target_node # Proxmoxのノード名
