@@ -6,7 +6,7 @@ resource "proxmox_virtual_environment_vm" "kube-ctrl-2" {
 
   clone{
     vm_id = var.template_vmid
-    full_clone = true
+    full = true
   }
   cpu{
     cores = 4
