@@ -18,23 +18,6 @@ resource "proxmox_virtual_environment_vm" "ubuntu_temp" {
     model = "virtio"
     bridge = var.bridge
   }
-
-  disk {
-    aio               = "io_uring"
-    backup            = true
-    cache             = "none"
-    datastore_id      = "local-lvm"
-    discard           = "ignore"
-    file_format       = "raw"
-    file_id           = null
-    import_from       = null
-    interface         = "scsi0"
-    iothread          = false
-    replicate         = true
-    serial            = null
-    size              = 64
-    ssd               = false
-  }
   
   initialization {
     datastore_id = "local-lvm"
